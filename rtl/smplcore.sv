@@ -42,25 +42,25 @@ wire jzi  = (opcode == 3'b111);
 logic [12:0] program_counter;
 logic [15:0] acc; // accumulator register
 
+assign wenbl = reset ? 0 : stai ? 1 : 0;
+assign renbl = reset ? 1 : ~stai ? 1 : 0;
+
 // ====== Instruction evaluation
 always_ff @(posedge clock, posedge reset) begin
-    if(reset) begin
+    if (reset) begin
 
         acc <= '0;
         program_counter <= '0;
+        iaddr <= '0;
         datao <= '0;
         daddr <= '0;
-        wenbl <= 0;
-        renbl <= 1;
 
     end else begin
 
-        acc <= acc;
+        acc <= '1;
         program_counter <= program_counter + 1;
         datao <= datao;
         daddr <= daddr;
-        wenbl <= stai ? 1 : 0;
-        renbl <= ~stai? 1 : 0;
 
         unique case (1'b1)
             addi: acc <= acc + datai;

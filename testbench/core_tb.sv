@@ -1,4 +1,4 @@
-module smpl_tb;
+module core_tb;
 
 logic clock, reset;
 logic read_en, write_en;
@@ -23,7 +23,7 @@ always #1 clock = ~clock;
 
 initial begin
     $dumpfile("wave.vcd");
-    $dumpvars(0, smpl_tb);
+    $dumpvars(0, core_tb);
 
     #0 reset = 1; #1 reset = 0;
 
